@@ -38,7 +38,7 @@ var tarefa = new Vue({
             })
         },
         novoLog: function(tarefa){
-            this.$http.get(window.baseUrl+"tarefa/show/"+tarefa.id).then(function(resp){
+            this.$http.get(window.baseUrl+"tarefa/showTarefaLog/"+tarefa.id).then(function(resp){
                 this.tarefa = resp.data;
                 this.log = {};
                 $("#formLog").modal('show');

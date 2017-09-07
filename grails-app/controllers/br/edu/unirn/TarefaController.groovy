@@ -38,6 +38,21 @@ class TarefaController {
         ] as JSON)
     }
 
+    def showTarefaLog(){
+        Tarefa tarefa = Tarefa.get(params.id)
+        render([
+                id: tarefa.id,
+                titulo: tarefa.titulo,
+                texto: tarefa.texto,
+                usuarioAbertura: tarefa.usuarioAbertura.email,
+                usuarioResponsavel: tarefa.usuarioResponsavel?.email,
+                dataLimite: tarefa.dataLimite.format("dd/MM/yyyy"),
+                tipoTarefa: tarefa.tipoTarefa.descricao,
+                statusTarefa: tarefa.statusTarefa.descricao,
+                porcentagem: tarefa.porcentagem
+        ] as JSON)
+    }
+
     def list(){
         def retorno = []
 
