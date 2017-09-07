@@ -45,6 +45,14 @@ var tarefa = new Vue({
             }, function(resp){
             })
         },
+        salvarLog: function(){
+            this.$http.post(window.baseUrl+"tarefa/saveLogTarefa"+tarefa.id, this.log).then(function(resp){
+                $("#formLog").modal('hide');
+                this.log = {};
+            }, function(error){
+                console.info(error)
+            })
+        },
         updateTarefa: function(){
             this.$http.put(window.baseUrl+"tarefa/update/"+this.tarefa.id, this.tarefa).then(function(resp){
                 this.getTarefas();

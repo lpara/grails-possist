@@ -23,6 +23,20 @@ class TarefaController {
         render status: 200
     }
 
+    def saveLogTarefa(){
+        params << request.JSON
+        LogTarefa log = new LogTarefa()
+        bindData(log, params, [exclude:['dateCreated', 'lastUpdated', 'tarefa']])
+        Date novaData = new Date()
+        log.dateCreated = novaData.format('dd/MM/yyyy')
+        log.lastUpdated = novaData.format('dd/MM/yyyy')
+        Tarefa tarefa = Tarefa.get(params.id)
+        tarefa.porcentagem = log.porcentagem
+        tarefa.statusTarefa = log.statusTarefa
+        LogTarefaController logController = new LogTarefaController()
+        logController.save(log, tarefa)
+    }
+
     def show(){
         Tarefa tarefa = Tarefa.get(params.id)
         render([
