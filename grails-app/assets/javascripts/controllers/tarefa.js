@@ -3,6 +3,8 @@ var tarefa = new Vue({
     data: {
         tarefas: [],
         tarefa: {},
+        log: {},
+        logs: {},
         loading: false
     },
     methods: {
@@ -32,6 +34,14 @@ var tarefa = new Vue({
             this.$http.get(window.baseUrl+"tarefa/show/"+tarefa.id).then(function(resp){
                 this.tarefa = resp.data;
                 $("#formTarefa").modal('show');
+            }, function(resp){
+            })
+        },
+        novoLog: function(tarefa){
+            this.$http.get(window.baseUrl+"tarefa/show/"+tarefa.id).then(function(resp){
+                this.tarefa = resp.data;
+                this.log = {};
+                $("#formLog").modal('show');
             }, function(resp){
             })
         },
