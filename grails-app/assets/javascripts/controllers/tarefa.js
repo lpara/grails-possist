@@ -41,7 +41,8 @@ var tarefa = new Vue({
             this.$http.get(window.baseUrl+"tarefa/showTarefaLog/"+tarefa.id).then(function(resp){
                 this.tarefa = resp.data;
                 this.log = {};
-                this.log.tarefa = tarefa;
+                this.log.tarefa = {};
+                this.log.tarefa.id = this.tarefa.id;
                 $("#formLog").modal('show');
             }, function(resp){
             })

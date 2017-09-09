@@ -18,15 +18,9 @@
     </div>
 </div>
 <div class="form-group">
-    <div class="col-sm-10">
-        <g:hiddenField name="usuarioAberturaComp" v-model="tarefa.usuarioAbertura"/>
-    </div>
-</div>
-<div class="form-group">
     <label for="usuarioResponsavel" class="col-sm-2 control-label">Usuario Responsavel</label>
     <div class="col-sm-10">
         <g:field name="usuarioResponsavel" class="form-control" v-model="tarefa.usuarioResponsavel.email" readonly="true"/>
-        <g:hiddenField name="usuarioResponsavelComp" v-model="tarefa.usuarioResponsavel"/>
     </div>
 </div>
 
@@ -40,7 +34,6 @@
     <label for="tipoTarefa" class="col-sm-2 control-label">Tipo Tarefa</label>
     <div class="col-sm-10">
         <g:field name="tipoTarefa" class="form-control" v-model="tarefa.tipoTarefa.descricao" readonly="true"/>
-        <g:hiddenField name="tipoTarefaComp" v-model="tarefa.tipoTarefa"/>
     </div>
 </div>
 <div class="form-group">
@@ -89,3 +82,4 @@
                 from="${br.edu.unirn.tipos.StatusTarefa.values()}" optionValue="descricao" keys="${br.edu.unirn.tipos.StatusTarefa?.values()*.name()}"/>
     </div>
 </div>
+

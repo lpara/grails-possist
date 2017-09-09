@@ -26,14 +26,14 @@ class TarefaController {
     def saveLogTarefa(){
         params << request.JSON
         LogTarefa log = new LogTarefa()
-        bindData(log, params, [exclude:['dateCreated', 'lastUpdated']])
+        bindData(log, params)
         Date novaData = new Date()
         log.dateCreated = novaData
         log.lastUpdated = novaData
-        Tarefa tarefa = Tarefa.get(log.tarefa.id)
-        tarefa.usuarioAbertura = Usuario.findWhere(email: tarefa.usuarioAbertura.email)
-        tarefa.usuarioResponsavel = Usuario.findWhere(email: tarefa.usuarioResponsavel.email)
-        tarefa.tipoTarefa = TipoTarefa.findWhere(descricao: tarefa.tipoTarefa.descricao)
+        log.tarefa.usuarioAbertura = Usuario.findWhere(email: log.tarefa.usuarioAbertura.email)
+        log.tarefa.usuarioResponsavel = Usuario.findWhere(email: log.tarefa.usuarioResponsavel.email)
+        log.tarefa.tipoTarefa = TipoTarefa.findWhere(descricao: log.tarefa.tipoTarefa.descricao)
+        Tarefa tarefa = Tarefa.findWhere(id:  log.tarefa.id)
         tarefa.porcentagem = log.porcentagem
         tarefa.statusTarefa = log.statusTarefa
         log.tarefa = tarefa
@@ -44,6 +44,8 @@ class TarefaController {
             render status: 500
             return
         }
+
+        render status: 200
     }
 
     def show(){
