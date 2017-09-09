@@ -10,7 +10,7 @@
                         <th>Usuario Cadastro</th>
                         <th>Data Cadastro</th>
                         <th>Status Tarefa No Log</th>
-                        <th>Porcentagem Tarefa no Log</th>
+                        <th>% do Log</th>
                     </tr>
                     </thead>
                     <tbody>

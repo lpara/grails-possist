@@ -4,7 +4,7 @@ var tarefa = new Vue({
         tarefas: [],
         tarefa: {},
         log: {},
-        logs: {},
+        logs: [],
         loading: false
     },
     methods: {
