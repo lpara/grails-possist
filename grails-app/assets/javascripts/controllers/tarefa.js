@@ -49,6 +49,7 @@ var tarefa = new Vue({
         },
         salvarLog: function(){
             this.$http.post(window.baseUrl+"tarefa/saveLogTarefa", this.log).then(function(resp){
+                this.getTarefas();
                 $("#formLog").modal('hide');
                 this.log = {};
             }, function(error){
