@@ -26,15 +26,24 @@ class TarefaController {
     def saveLogTarefa(){
         params << request.JSON
         LogTarefa log = new LogTarefa()
-        bindData(log, params, [exclude:['dateCreated', 'lastUpdated', 'tarefa']])
+        bindData(log, params, [exclude:['dateCreated', 'lastUpdated']])
         Date novaData = new Date()
-        log.dateCreated = novaData.format('dd/MM/yyyy')
-        log.lastUpdated = novaData.format('dd/MM/yyyy')
-        Tarefa tarefa = Tarefa.get(params.id)
+        log.dateCreated = novaData
+        log.lastUpdated = novaData
+        Tarefa tarefa = Tarefa.get(log.tarefa.id)
+        tarefa.usuarioAbertura = Usuario.findWhere(email: tarefa.usuarioAbertura.email)
+        tarefa.usuarioResponsavel = Usuario.findWhere(email: tarefa.usuarioResponsavel.email)
+        tarefa.tipoTarefa = TipoTarefa.findWhere(descricao: tarefa.tipoTarefa.descricao)
         tarefa.porcentagem = log.porcentagem
         tarefa.statusTarefa = log.statusTarefa
-        LogTarefaController logController = new LogTarefaController()
-        logController.save(log, tarefa)
+        log.tarefa = tarefa
+
+        if(!log.save(flush: true) || !tarefa.save(flush: true)){
+            log.errors.each {println it}
+            tarefa.errors.each {println it}
+            render status: 500
+            return
+        }
     }
 
     def show(){
@@ -58,10 +67,10 @@ class TarefaController {
                 id: tarefa.id,
                 titulo: tarefa.titulo,
                 texto: tarefa.texto,
-                usuarioAbertura: tarefa.usuarioAbertura.email,
-                usuarioResponsavel: tarefa.usuarioResponsavel?.email,
+                usuarioAbertura: tarefa.usuarioAbertura,
+                usuarioResponsavel: tarefa.usuarioResponsavel,
                 dataLimite: tarefa.dataLimite.format("dd/MM/yyyy"),
-                tipoTarefa: tarefa.tipoTarefa.descricao,
+                tipoTarefa: tarefa.tipoTarefa,
                 statusTarefa: tarefa.statusTarefa.descricao,
                 porcentagem: tarefa.porcentagem
         ] as JSON)

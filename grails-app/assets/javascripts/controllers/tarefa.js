@@ -41,12 +41,13 @@ var tarefa = new Vue({
             this.$http.get(window.baseUrl+"tarefa/showTarefaLog/"+tarefa.id).then(function(resp){
                 this.tarefa = resp.data;
                 this.log = {};
+                this.log.tarefa = tarefa;
                 $("#formLog").modal('show');
             }, function(resp){
             })
         },
         salvarLog: function(){
-            this.$http.post(window.baseUrl+"tarefa/saveLogTarefa"+tarefa.id, this.log).then(function(resp){
+            this.$http.post(window.baseUrl+"tarefa/saveLogTarefa", this.log).then(function(resp){
                 $("#formLog").modal('hide');
                 this.log = {};
             }, function(error){

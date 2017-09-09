@@ -14,15 +14,22 @@
 <div class="form-group">
     <label for="usuarioAbertura" class="col-sm-2 control-label">Usuario Abertura</label>
     <div class="col-sm-10">
-        <g:field name="usuarioAbertura" class="form-control" v-model="tarefa.usuarioAbertura" readonly="true"/>
+        <g:field name="usuarioAbertura" class="form-control" v-model="tarefa.usuarioAbertura.email" readonly="true"/>
+    </div>
+</div>
+<div class="form-group">
+    <div class="col-sm-10">
+        <g:hiddenField name="usuarioAberturaComp" v-model="tarefa.usuarioAbertura"/>
     </div>
 </div>
 <div class="form-group">
     <label for="usuarioResponsavel" class="col-sm-2 control-label">Usuario Responsavel</label>
     <div class="col-sm-10">
-        <g:field name="usuarioResponsavel" class="form-control" v-model="tarefa.usuarioResponsavel" readonly="true"/>
+        <g:field name="usuarioResponsavel" class="form-control" v-model="tarefa.usuarioResponsavel.email" readonly="true"/>
+        <g:hiddenField name="usuarioResponsavelComp" v-model="tarefa.usuarioResponsavel"/>
     </div>
 </div>
+
 <div class="form-group">
     <label for="dataLimite" class="col-sm-2 control-label">Data Limite</label>
     <div class="col-sm-10">
@@ -32,13 +39,14 @@
 <div class="form-group">
     <label for="tipoTarefa" class="col-sm-2 control-label">Tipo Tarefa</label>
     <div class="col-sm-10">
-        <g:field name="tipoTarefa" class="form-control" v-model="tarefa.tipoTarefa" readonly="true"/>
+        <g:field name="tipoTarefa" class="form-control" v-model="tarefa.tipoTarefa.descricao" readonly="true"/>
+        <g:hiddenField name="tipoTarefaComp" v-model="tarefa.tipoTarefa"/>
     </div>
 </div>
 <div class="form-group">
     <label for="statusTarefa" class="col-sm-2 control-label">Status Tarefa</label>
     <div class="col-sm-10">
-        <g:field name="statusTarefa" class="form-control" v-model="tarefa.statusTarefa" readonly="true"/>
+        <g:field name="statusTarefa" class="form-control" v-model="tarefa.statusTarefa.descricao" readonly="true"/>
     </div>
 </div>
 <div class="form-group">
