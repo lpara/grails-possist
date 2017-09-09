@@ -6,6 +6,8 @@ class TarefaController {
 
     static scaffold = Tarefa
 
+    def tarefasFiltradas
+
     def index(){}
 
     def save(){
@@ -78,23 +80,72 @@ class TarefaController {
         ] as JSON)
     }
 
-    def list(){
+    def showListLog(){
         def retorno = []
 
-        Tarefa.list().each {
+        Tarefa tarefaSelect = Tarefa.get(params.id)
+        def c = LogTarefa.createCriteria()
+        List<LogTarefa> logs = c.list {  eq('tarefa.id', tarefaSelect.id)    }
+        logs.each {
             retorno.add([
-                id: it.id,
-                titulo: it.titulo,
-                usuarioAbertura: it.usuarioAbertura.email,
-                usuarioResponsavel: it.usuarioResponsavel?.email,
-                dataLimite: it.dataLimite.format("dd/MM/yyyy"),
-                tipoTarefa: it.tipoTarefa.descricao,
-                statusTarefa: it.statusTarefa.name(),
-                porcentagem: it.porcentagem
+                    id: it.id,
+                    texto: it.texto,
+                    usuarioLog: it.usuarioLog.email,
+                    dataCriacao: it.dateCreated.format("dd/MM/yyyy"),
+                    statusTarefa: it.statusTarefa.name(),
+                    porcentagem: it.porcentagem
             ])
         }
 
         render retorno as JSON
+    }
+
+    def list(){
+        def retorno = []
+
+        if(tarefasFiltradas)
+            tarefasFiltradas.each {
+                retorno.add([
+                        id: it.id,
+                        titulo: it.titulo,
+                        usuarioAbertura: it.usuarioAbertura.email,
+                        usuario: it.usuarioAbertura,
+                        usuarioResponsavel: it.usuarioResponsavel?.email,
+                        dataLimite: it.dataLimite.format("dd/MM/yyyy"),
+                        tipoTarefa: it.tipoTarefa.descricao,
+                        statusTarefa: it.statusTarefa.name(),
+                        porcentagem: it.porcentagem
+                ])
+            }
+        else {
+            Tarefa.list().each {
+                retorno.add([
+                        id                : it.id,
+                        titulo            : it.titulo,
+                        usuarioAbertura   : it.usuarioAbertura.email,
+                        usuario           : it.usuarioAbertura,
+                        usuarioResponsavel: it.usuarioResponsavel?.email,
+                        dataLimite        : it.dataLimite.format("dd/MM/yyyy"),
+                        tipoTarefa        : it.tipoTarefa.descricao,
+                        statusTarefa      : it.statusTarefa.name(),
+                        porcentagem       : it.porcentagem
+                ])
+            }
+        }
+        render retorno as JSON
+    }
+
+    def filter() {
+        log.info("Iniciando buscar por filtros.")
+
+        def tarefaList =  Tarefa.withCriteria(){
+            ilike('titulo', '%' + params["titulo"] + '%')
+        }
+
+        tarefasFiltradas = tarefaList
+
+        render view: "index", model: tarefaList
+
     }
 
     def update(){

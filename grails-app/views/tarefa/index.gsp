@@ -17,6 +17,21 @@
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-sm-12">
+                            <fieldset>
+                                <legend>Filtrar Lista de Tarefas</legend>
+                                <g:form action="filter" controller="tarefa" method="post">
+                                    <ul>
+                                        <li>
+                                            <label for="name">Titulo:</label>
+                                            <g:textField name="titulo" id="titulo" value="" style="width: 75%;"/>
+
+                                            <g:submitButton class="btn btn-success pull-right" name="btRemove" value="Limpar Filtro"/>
+
+                                            <g:submitButton class="btn btn-success pull-right" name="btSend" value="Filtrar" />
+                                        </li>
+                                    </ul>
+                                </g:form>
+                            </fieldset>
                             <button class="btn btn-success pull-right" @click="novaTarefa">
                                 Nova Tarefa
                             </button>
@@ -32,9 +47,8 @@
                                         <th>Tipo Tarefa</th>
                                         <th>Status</th>
                                         <th>%</th>
-                                        <th>
-                                            Add Log
-                                        </th>
+                                        <th>Add Log</th>
+                                        <th>Listar Logs</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -52,6 +66,11 @@
                                     <td>
                                         <button class="btn btn-success pull-right" @click="novoLog(tarefa)">
                                             Novo Log
+                                        </button>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-success pull-right" @click="listLog(tarefa)">
+                                            Listar
                                         </button>
                                     </td>
                                 </tr>
@@ -101,6 +120,25 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                             <button type="button" class="btn btn-primary" @click="salvarLog"><i class="fa fa-floppy-o"></i>Cadastrar Log</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade" tabindex="-1" role="dialog" id="formListLog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Logs da Tarefa</h4>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form-horizontal">
+                                <g:render template="formListLogTarefa"/>
+                            </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                         </div>
                     </div>
                 </div>
