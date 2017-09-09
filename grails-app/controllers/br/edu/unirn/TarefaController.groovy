@@ -22,6 +22,7 @@ class TarefaController {
             return
         }
 
+        tarefasFiltradas = null
         render status: 200
     }
 

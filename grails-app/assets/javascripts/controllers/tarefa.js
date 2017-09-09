@@ -71,7 +71,6 @@ var tarefa = new Vue({
             this.$http.get(window.baseUrl+"tarefa/showListLog/"+tarefa.id).then(function(resp){
                 this.logs = resp.data;
                 $("#formListLog").modal('show');
-                this.logs = {};
             }, function(resp){
             })
         },
