@@ -66,6 +66,17 @@ class TarefaController {
         ] as JSON)
     }
 
+    def showNovaTarefa(){
+        Tarefa tarefa = new Tarefa()
+        if (tarefa.usuarioAbertura == null || tarefa.usuarioAbertura.id == 0){
+            tarefa.id = 0
+            tarefa.usuarioAbertura = session.usuario
+        }
+        render([
+                usuarioAbertura: tarefa.usuarioAbertura.id,
+        ] as JSON)
+    }
+
     def showTarefaLog(){
         Tarefa tarefa = Tarefa.get(params.id)
         render([

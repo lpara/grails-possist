@@ -18,10 +18,13 @@ var tarefa = new Vue({
             })
         },
         novaTarefa: function(){
-            this.tarefa = {};
-            this.tarefa.porcentagem = 0;
-            this.tarefa.dataLimite = moment().add(1, 'days').format("DD/MM/YYYY");
-            $("#formTarefa").modal('show');
+            this.$http.get(window.baseUrl+"tarefa/showNovaTarefa/").then(function(resp) {
+                this.tarefa = resp.data;
+                this.tarefa.porcentagem = 0;
+                this.tarefa.dataLimite = moment().add(1, 'days').format("DD/MM/YYYY");
+                $("#formTarefa").modal('show');
+            }, function(resp){
+            })
         },
         filtraTarefa: function(){
             this.loading = true;
